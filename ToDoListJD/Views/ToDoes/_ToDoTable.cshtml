@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ToDoListJD.Models.ToDo>
+
+<h3>Progress Bar</h3>
+<div id="progressBarToDo">
+    
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width:@(ViewBag.Percent)%"></div>
+    </div> 
+</div>
+
+
+<h3>Checklist</h3>
+<table class="table">
+   
+    
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (!item.isDone)
+                {
+                    @Html.DisplayFor(modelItem => item.Description)
+                }
+                else
+                {
+                    <div class="CompletedToDo">@Html.DisplayFor(modelItem => item.Description)</div>
+                }
+            </td>
+            <td>
+                @Html.CheckBoxFor(modelItem => item.isDone, new { id = item.Id, @class = "ActiveCheck"})
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.DateModified)
+            </td>*@
+        </tr>
+    }
+
+</table>
+
+<script src="~/CustomScriptsJordan/AddCheckBoxListener.js"></script>
